@@ -31,11 +31,12 @@
 
 ## Deployed application link
 
-- [Deployed Link](...)
+- [Deployed Link](https://sleepy-ridge-43911.herokuapp.com/)
 
 ## Usage
 
 - User only needs to go to the deployed link.
+- ![Home Page](assets/homepage.JPG)
 
 ## License
 
