@@ -10,5 +10,8 @@ export default {
     },
     updatePost: function (id, updatedPost) {
         return axios.patch(`/posts/${id}`, updatedPost);
+    },
+    deletePost: function (id) {
+        return axios.delete(`/posts/${id}`);
     }
 };

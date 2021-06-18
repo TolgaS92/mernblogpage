@@ -7,6 +7,7 @@ router.route("/")
     .get(postControllers.findAll)
     .post(postControllers.create);
 router.route("/:id")
-    .patch(postControllers.update);
+    .patch(postControllers.update)
+    .delete(postControllers.remove)
 
 module.exports = router;

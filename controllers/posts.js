@@ -21,8 +21,11 @@ module.exports = {
           .catch(err => res.status(422).json(err));
       },
     update: function(req, res) {
+        const { id } = req.params;
+        const { title, message, creator, selectedFile, tags } = req.body;
+        const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
         db.PostMessage
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .findOneAndUpdate(id, updatedPost, { new: true })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
