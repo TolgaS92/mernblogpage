@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import useStyles from './styles';
 import FileBase from 'react-file-base64';
-import { useDispatch } from 'react-redux';
-import { createPost } from '../../actions/posts';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost, updatePost } from '../../actions/posts';
 
-const Form = () => {
-    const [postData, setPostData] = useState({ create: '', title: '', message: '', tags: '', selectedFile: '' })
+
+const Form = ({ postId ,setPostId}) => {
+    const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
+    const post = useSelector((state) => postId ? state.posts.find((p) => p._id === postId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
     
+    useEffect(() => {
+        if(post) setPostData(post)
+    }, [post]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(postId) {
+            dispatch(updatePost(postId, postData))
+        } else {
         dispatch(createPost(postData))
-    }
+        }
+        clear();
+    };
     const clear = () => {
-
-    }
+        setPostId(null);
+        setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+    };
     return(
         <Paper className={classes.paper}>
             <form 
@@ -26,15 +38,15 @@ const Form = () => {
             onSubmit={handleSubmit}>
             <Typography 
             variant="h6">
-                Create a Blog Post
+                {postId ?  'Edit' : 'Create' } a Blog Post
             </Typography>
             <TextField 
-            name="create" 
+            name="creator" 
             variant="outlined" 
-            label="Create" 
+            label="creator" 
             fullWidth
-            value={postData.create}
-            onChange={(e) => setPostData({ ...postData, create: e.target.value })}
+            value={postData.creator}
+            onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
             />
             <TextField 
             name="title" 
@@ -81,7 +93,6 @@ const Form = () => {
             variant="contained"
             color="secondary"
             size="small"
-            type="submit"
             fullWidth
             onClick={clear}
             >
