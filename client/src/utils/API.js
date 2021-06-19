@@ -13,5 +13,8 @@ export default {
     },
     deletePost: function (id) {
         return axios.delete(`/posts/${id}`);
+    },
+    likePost: function (id) {
+        return axios.patch(`/posts/${id}/likePost`);
     }
 };
