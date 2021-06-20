@@ -66,7 +66,7 @@ module. = {
 const express = require('express');
 const mongoose = require('mongoose');
 
-const PostMessage = require('../models/postMessage.js');
+const PostMessage = require('../models/PostMessage.js');
 
 const router = express.Router();
 
