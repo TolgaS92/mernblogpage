@@ -7,10 +7,11 @@ import { createPost, updatePost } from '../../actions/posts';
 
 
 const Form = ({ postId ,setPostId}) => {
-    const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
+    const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' })
     const post = useSelector((state) => postId ? state.posts.find((p) => p._id === postId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
+    const user = JSON.parse(localStorage.getItem('profile'));
     
     useEffect(() => {
         if(post) setPostData(post)
@@ -18,17 +19,31 @@ const Form = ({ postId ,setPostId}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(postId) {
-            dispatch(updatePost(postId, postData))
-        } else {
-        dispatch(createPost(postData))
+
+        if (postId === 0) {
+            dispatch(createPost({ ...postData, name: user?.result?.name }));
+            clear();
+          } else {
+            dispatch(updatePost(postId, { ...postData, name: user?.result?.name }));
+            clear();
         }
-        clear();
     };
+
     const clear = () => {
-        setPostId(null);
-        setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
+        setPostId(0);
+        setPostData({ title: '', message: '', tags: '', selectedFile: '' });
     };
+
+    if(!user?.result?.name) {
+        return (
+            <Paper className={classes.paper}>
+                <Typography variant="h6" align="center">
+                    You need to Sign In to create your own blog, and like other's.
+                </Typography>
+            </Paper>
+        )
+    }
+
     return(
         <Paper className={classes.paper}>
             <form 
@@ -40,14 +55,6 @@ const Form = ({ postId ,setPostId}) => {
             variant="h6">
                 {postId ?  'Edit' : 'Create' } a Blog Post
             </Typography>
-            <TextField 
-            name="creator" 
-            variant="outlined" 
-            label="creator" 
-            fullWidth
-            value={postData.creator}
-            onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
-            />
             <TextField 
             name="title" 
             variant="outlined" 
