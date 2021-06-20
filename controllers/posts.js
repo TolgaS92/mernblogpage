@@ -1,5 +1,4 @@
 const db = require("../models");
-const data = require("../models/PostMessage.js")
 
 module.exports = {
     findAll: function(req, res) {
@@ -39,12 +38,21 @@ module.exports = {
     },
     likePost: function(req, res) {
         const { id } = req.params;
-        const { likeCount } = req.body;
-        const post = data.findById(id);
+        /* const { likeCount } = req.body; */
+        if(!req.userId) return res.json({ message: 'Unauthenticated' });
+        const post = db.PostMessage.findById(id);
+        const index = post.likes.findIndex((id) => id === String(req.userId));
+        if(index === -1){
+            //like the post
+            post.likes.push(req,userId);
+        } else {
+            //dislike the post
+            post.likes = post.likes.filter((id) => id !== String(req.userId));
+        }
         /* const updatedPost2 = { likeCount: post.likeCount + 1, _id: id };
         const updatedPost = db.PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true }); */
-        data
-            .findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true })
+        db.PostMessage
+            .findByIdAndUpdate(id, post, { new: true })
             .then(dbModel => res.json(dbModel))
             .catch(err => {
                 console.log(err)

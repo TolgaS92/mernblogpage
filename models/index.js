@@ -1,4 +1,5 @@
 module.exports = {
-    PostMessage: require("./PostMessage")
+    PostMessage: require("./PostMessage"),
+    User: require("./User")
   };
   
