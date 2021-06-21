@@ -20,7 +20,7 @@ const Form = ({ postId ,setPostId}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (postId === 0) {
+        if (!postId) {
             dispatch(createPost({ ...postData, name: user?.result?.name }));
             clear();
           } else {
