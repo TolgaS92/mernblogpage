@@ -15,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/auth" component={Auth}/>
+          <Route exact path="/profile" component={Home}/>
         </Switch>
       </Container>
     </BrowserRouter>
