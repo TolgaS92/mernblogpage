@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import BlogPosts from '../../images/Blog.png';
+/* import BlogPosts from '../../images/Blog.png'; */
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import useStyles from './styles';
+import Download from '../../images/Download.png';
 
 const Navbar = () => {
     const classes = useStyles();
@@ -35,10 +36,9 @@ const Navbar = () => {
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Typography className={classes.heading} variant="h2" align="center">
-                    Blog Post
-                </Typography>
-                <img src={BlogPosts} alt="BlogPosts" height="60" />
+                <Button component={Link} to="/">
+                    <img src={Download} alt="BlogPosts" height="60" />
+                </Button>
             </div>
             <div>
             </div>
@@ -49,12 +49,17 @@ const Navbar = () => {
                         <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
                         <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
                         <Typography className={classes.heading} align="left">
-                            <Button component={Link} to="/profile" variant="contained" color="primary">Profile</Button>
+                            <Button className={classes.button} component={Link} to="/" variant="contained" color="primary">Home</Button>
                         </Typography>
-                        <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
+                        <Typography className={classes.heading} align="left">
+                            <Button className={classes.button} component={Link} to="/profile" variant="contained" color="primary">Profile</Button>
+                        </Typography>
+                        <Typography className={classes.heading} align="left">
+                            <Button variant="contained" className={classes.button} color="secondary" onClick={logout}>Logout</Button>
+                        </Typography>
                     </div>
                 ) : (
-                    <Button component={Link} to="/auth" variant="contained" color="primary">Sign in</Button>
+                    <Button className={classes.signIn} component={Link} to="/auth" variant="contained" color="primary">Sign in</Button>
                 )}
             </Toolbar>
         </AppBar>

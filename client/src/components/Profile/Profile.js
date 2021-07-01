@@ -8,10 +8,11 @@ import Form from '../Form/Form'
 const Profile = () => {
     const [postId, setPostId]= useState();
     const dispatch = useDispatch();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
     useEffect(() => {
         dispatch(getPosts());
-        console.log(postId)
+        /* console.log(user.result._id) */
     }, [postId,dispatch])
 
     return (
