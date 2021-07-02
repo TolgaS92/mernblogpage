@@ -14,6 +14,9 @@ export default {
     fetchPosts: function () {
         return API.get('/posts');
     },
+    fetchPostsId: function (creator) {
+        return API.get(`/posts/${creator}`);
+    },
     createPost: function (newPost) {
         return API.post('/posts', newPost);
     },

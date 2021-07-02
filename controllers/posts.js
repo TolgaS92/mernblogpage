@@ -81,14 +81,14 @@ const findAll = async (req, res) => {
 }
 
 const findById = async (req, res) => { 
-    const { id } = req.params;
+    const { creator } = req.params;
 
     try {
-        const post = await PostMessage.findById(id);
+        const post = await PostMessage.findById(creator);
         
         res.status(200).json(post);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).json(console.log(error),{ message: error.message });
     }
 }
 

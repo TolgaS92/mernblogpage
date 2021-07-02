@@ -8,6 +8,7 @@ router.route("/")
     .post(auth, postControllers.create)
 
 router.route("/:id")
+    .get(auth, postControllers.findById)
     .patch(auth, postControllers.update)
     .delete(auth, postControllers.remove);
 

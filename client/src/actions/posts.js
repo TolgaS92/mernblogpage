@@ -12,6 +12,16 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
+export const getPostsWithId = (creator) => async (dispatch) => {
+  try {
+     await API.fetchPostsId(creator);
+
+    dispatch({ type: DELETE, payload: creator });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createPost = (post) => async (dispatch) => {
   try {
     const { data } = await API.createPost(post);
