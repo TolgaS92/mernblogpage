@@ -16,11 +16,12 @@ const Home = () => {
 
     return (
         <Grow in>
-        <Container>
+        <Container fixed>
           <Grid  container justify="space-between" alignItems="stretch" spacing={3}>
           <WeatherBar 
             style={{
-              display: "block",
+              marginLeft: "0",
+              floatLeft: "true"
             }}
             />
             <Grid item xs={12} sm={5} >
