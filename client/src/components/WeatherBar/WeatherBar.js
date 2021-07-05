@@ -8,14 +8,16 @@ const WeatherBar = () => {
             <Card className={classes.card}>
             <CardMedia className={classes.media} image="" title="" />
             <div className={classes.overlay}>
-                <Typography variant="h6">{}</Typography>
+                <Typography variant="h6">
+                    City Name
+                </Typography>
             </div>
             <div className={classes.details}>
-            <Typography variant="body2" color="textSecondary">{}</Typography>
+            <Typography variant="body2" color="textSecondary">Degree</Typography>
             </div>
-            <Typography className={classes.title} variant="h5">{}</Typography>
+            <Typography className={classes.title} variant="h5">Day</Typography>
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p" gutterBottom>{}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p" gutterBottom>Explanation</Typography>
             </CardContent>
         </Card>
     )

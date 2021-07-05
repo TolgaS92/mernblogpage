@@ -5,7 +5,6 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import Profile from './components/Profile/Profile';
-import WeatherBar from './components/WeatherBar/WeatherBar';
 
 function App() {
   
@@ -14,13 +13,6 @@ function App() {
     
     <BrowserRouter>
       <Container maxWidth="lg">
-      <WeatherBar 
-        style={{
-          display: "block",
-          height: "20px",
-          width: "10px"
-        }}
-      />
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home}/>

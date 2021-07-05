@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form'
+import WeatherBar from '../WeatherBar/WeatherBar';
 
 const Home = () => {
     const [postId, setPostId]= useState(null);
@@ -17,6 +18,11 @@ const Home = () => {
         <Grow in>
         <Container>
           <Grid  container justify="space-between" alignItems="stretch" spacing={3}>
+          <WeatherBar 
+            style={{
+              display: "block",
+            }}
+            />
             <Grid item xs={12} sm={5} >
               <Posts setPostId={setPostId} />
             </Grid>
