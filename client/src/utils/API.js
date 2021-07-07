@@ -11,6 +11,9 @@ API.interceptors.request.use((req) => {
   });
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+    fetchWeather: function (cityPicked) {
+        return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityPicked}&units=imperial&appid=1690177fc6acff4c67ec2d90d2b1d0c6`)
+    },
     fetchPosts: function () {
         return API.get('/posts');
     },
