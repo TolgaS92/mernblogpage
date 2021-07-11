@@ -3,25 +3,47 @@ import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import useStyles from './style';
 import API from "../../utils/API";
 import moment from 'moment';
+import WeatherSearchForm from "../WeatherSearchForm/WeatherSearchForm";
 
 const WeatherBar = () => {
     const classes = useStyles();
     const [weather, setWeather]=useState([])
+    const [formObject, setFormObject] = useState("")
     const date = moment().format("MMMM Do YYYY");
 
     useEffect(() => {
         API.fetchWeather('denver')
-          .then(res => setWeather(res.data.main))
+          .then(res => {
+              console.log(res.data.main)
+              setWeather(res.data.main)
+            })
           .catch(err => console.log(err))
       }, [])
 
+    function handleInputChange (event) {
+        const { name, value } = event.target;
+        setFormObject({...formObject, [name]: value})
+    };
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        const search = formObject.search;
+        API.fetchWeather(search).then(res => {
+            setWeather((res.data))
+        }).catch(err => console.log(err));
+      };
+
     return (
         <div>
+        <WeatherSearchForm 
+        handleFormSubmit={handleFormSubmit}
+        handleInputChange={handleInputChange}
+        />
         <Card className={classes.card}>
-            <CardMedia className={classes.media} image="/* {`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} */" title="" />
+            <CardMedia className={classes.media} image={weather} title="" />
             <div className={classes.overlay}>
                 <Typography variant="h6">
-                    Denver
+                    {weather.name}
                 </Typography>
             </div>
             <div className={classes.details}>
