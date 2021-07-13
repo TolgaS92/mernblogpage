@@ -29,7 +29,7 @@ const WeatherBar = () => {
         event.preventDefault();
         const search = formObject.search;
         API.fetchWeather(search).then(res => {
-            setWeather((res.data))
+            setWeather((res.data.main))
         }).catch(err => console.log(err));
       };
 
@@ -43,7 +43,7 @@ const WeatherBar = () => {
             <CardMedia className={classes.media} image={weather} title="" />
             <div className={classes.overlay}>
                 <Typography variant="h6">
-                    {weather.name}
+                    {formObject.search}
                 </Typography>
             </div>
             <div className={classes.details}>
