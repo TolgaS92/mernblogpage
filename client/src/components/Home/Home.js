@@ -19,6 +19,7 @@ const Home = () => {
         <Container fixed>
           <Grid  container justify="space-between" alignItems="stretch" spacing={3}>
           <WeatherBar 
+            item xs={12} sm={5}
             style={{
               marginLeft: "0",
               floatLeft: "true"
