@@ -15,16 +15,11 @@ export default makeStyles((theme) => ({
     marginLeft: '15px',
   },
   toolbar: {
-    display: 'inline',
-    justifyContent: 'flex-end',
-    paddingLeft: '490px',
-    width: '500',
+    display: 'flex',
+    marginLeft: 'auto',
   },
   profile: {
     display: 'flex',
-    justifyContent: 'flex-start',
-    width: '600px',
-    marginTop: '10px',
   },
   userName: {
     marginLeft: '10px',
@@ -33,7 +28,7 @@ export default makeStyles((theme) => ({
     width: '150px',
   },
   brandContainer: {
-    display: 'flex',
+    display: 'block',
     alignItems: 'center',
   },
   purple: {
@@ -45,8 +40,5 @@ export default makeStyles((theme) => ({
   },
   signIn: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: '10px',
-    marginLeft: '450px',
   },
 }));

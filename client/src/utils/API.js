@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:3000' });
+const API = axios.create({ baseURL: 'https://sleepy-ridge-43911.herokuapp.com/' });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {
@@ -13,6 +13,9 @@ API.interceptors.request.use((req) => {
 export default {
     fetchWeather: function (cityPicked) {
         return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityPicked}&units=imperial&appid=1690177fc6acff4c67ec2d90d2b1d0c6`)
+    },
+    fetchIp: function () {
+        return axios.get(`https://ipapi.co/json`)
     },
     fetchPosts: function () {
         return API.get('/posts');

@@ -8,17 +8,24 @@ import WeatherSearchForm from "../WeatherSearchForm/WeatherSearchForm";
 const WeatherBar = () => {
     const classes = useStyles();
     const [weather, setWeather]=useState([])
-    const [formObject, setFormObject] = useState("")
+    const [icon, setIcon]=useState('')
+    const [findIp, setFindIp] = useState('')
+    const [formObject, setFormObject] = useState('')
     const date = moment().format("MMMM Do YYYY");
 
     useEffect(() => {
-        API.fetchWeather('denver')
+        API.fetchIp()
           .then(res => {
-              console.log(res.data.main)
+              setFindIp(res.data.city)
+            })
+        API.fetchWeather(findIp,formObject)
+          .then(res => {
+              setIcon(res.data.weather[0].icon)
               setWeather(res.data.main)
             })
           .catch(err => console.log(err))
-      }, [])
+      }, [findIp,formObject])
+
 
     function handleInputChange (event) {
         const { name, value } = event.target;
@@ -29,7 +36,8 @@ const WeatherBar = () => {
         event.preventDefault();
         const search = formObject.search;
         API.fetchWeather(search).then(res => {
-            setWeather((res.data.main))
+            setIcon(res.data.weather[0].icon)
+            setWeather(res.data.main)
         }).catch(err => console.log(err));
       };
 
@@ -40,18 +48,17 @@ const WeatherBar = () => {
         handleInputChange={handleInputChange}
         />
         <Card className={classes.card}>
-            <CardMedia className={classes.media} image={weather} title="" />
-            <div className={classes.overlay}>
-                <Typography variant="h6">
-                    {formObject.search}
-                </Typography>
-            </div>
-            <div className={classes.details}>
-            <Typography variant="body2" color="textSecondary">Temperature: {weather.temp}˚F</Typography>
-            </div>
-            <Typography className={classes.title} variant="h5">{date}</Typography>
+        <Typography className={classes.title}>Your Location is: {findIp}</Typography>
+            <CardMedia className={classes.media}>
+                <img alt="icon" src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
+            </CardMedia>
+            <Card className={classes.card}>
+            <Typography className={classes.title} variant="h5">{formObject.search}</Typography>
+            </Card>
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p" gutterBottom>Humidity: {weather.humidity}%</Typography>
+            <Typography className={classes.details}>Day: {date}</Typography>
+            <Typography className={classes.details} variant="body2" color="textSecondary">Temperature: {weather.temp}˚F</Typography>
+            <Typography className={classes.details} variant="body2" color="textSecondary" component="p" gutterBottom>Humidity: {weather.humidity}%</Typography>
             </CardContent>
         </Card>
         </div>
